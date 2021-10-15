@@ -11,20 +11,26 @@ namespace UnitTests
 {
     public class Tests
     {
+        private Book _mockedBook;
+        private TakenBook _mockedTakenBook;
+        private List<Book> _mockedBookList;
+        private List<TakenBook> _mockedTakenBookList;
+
         [SetUp]
         public void Setup()
         {
+            _mockedBook = new Book("testName", "testAuthor", "testCategory", "testLanguage", DateTime.Parse("2000-02-02"), "123-123");
+            _mockedTakenBook = new TakenBook("123", 20, DateTime.Parse("2021-02-02"), _mockedBook);
+            _mockedBookList = new List<Book> { _mockedBook };
+            _mockedTakenBookList = new List<TakenBook> { _mockedTakenBook };
         }
 
         [Test]
         public void GetAllBooksCount()
         {
-            var mockedBookList = new List<Book> { new Book("testName", "testAuthor", "testCategory", "testLanguage", DateTime.Parse("2000-02-02"), "123-123") };
-            var mockedTakenBookList = new List<TakenBook> { new TakenBook("123", 20, DateTime.Parse("2021-02-02"),
-                            new Book("testName2", "testAuthor2", "testCategory2", "testLanguage2", DateTime.Parse("2000-02-02"), "123-123")) };
             var repositoryMock = new Mock<IBookRepository>();
-            repositoryMock.Setup(x => x.GetAllBooksData()).Returns(mockedBookList);
-            repositoryMock.Setup(x => x.GetAllTakenBooksData()).Returns(mockedTakenBookList);
+            repositoryMock.Setup(x => x.GetAllBooksData()).Returns(_mockedBookList);
+            repositoryMock.Setup(x => x.GetAllTakenBooksData()).Returns(_mockedTakenBookList);
             var service = new BookService(repositoryMock.Object);
             Assert.AreEqual(2, service.GetAllBooks().Count);
         }
@@ -73,14 +79,13 @@ namespace UnitTests
         [Test]
         public void TakeBookGivenGoodParametersReturnBook()
         {
-            var mockedBook = new Book("testName", "testAuthor", "testCategory", "testLanguage", DateTime.Parse("2000-02-02"), "123-123");
             var repositoryMock = new Mock<IBookRepository>();
             repositoryMock.Setup(x => x.GetUserTakenBookAmmount("123")).Returns(2);
-            repositoryMock.Setup(x => x.GetBook("123-123")).Returns(mockedBook);
-            repositoryMock.Setup(x => x.DeleteBookFromBooksDataFile(mockedBook));
-            repositoryMock.Setup(x => x.AddTakenBook(new TakenBook("123", 50, DateTime.UtcNow, mockedBook)));
+            repositoryMock.Setup(x => x.GetBook("123-123")).Returns(_mockedBook);
+            repositoryMock.Setup(x => x.DeleteBookFromBooksDataFile(_mockedBook));
+            repositoryMock.Setup(x => x.AddTakenBook(new TakenBook("123", 50, DateTime.UtcNow, _mockedBook)));
             var service = new BookService(repositoryMock.Object);
-            Assert.AreEqual(mockedBook, service.TakeBook("123", "123-123", "50"));
+            Assert.AreEqual(_mockedBook, service.TakeBook("123", "123-123", "50"));
         }
 
         [Test]
@@ -105,15 +110,13 @@ namespace UnitTests
         [Test]
         public void ReturnBookGivenGoodParametersReturnBook()
         {
-            var mockedBook = new Book("testName", "testAuthor", "testCategory", "testLanguage", DateTime.Parse("2000-02-02"), "123-123");
-            var mockedTakenBook = new TakenBook("user", 50, DateTime.UtcNow, mockedBook);
             var repositoryMock = new Mock<IBookRepository>();
-            repositoryMock.Setup(x => x.GetTakenBook("user", "123-123")).Returns(mockedTakenBook);
-            repositoryMock.Setup(x => x.DeleteBookFromTakenBooksDataFile(mockedTakenBook));
-            repositoryMock.Setup(x => x.AddBook(mockedTakenBook.Book));
+            repositoryMock.Setup(x => x.GetTakenBook("user", "123-123")).Returns(_mockedTakenBook);
+            repositoryMock.Setup(x => x.DeleteBookFromTakenBooksDataFile(_mockedTakenBook));
+            repositoryMock.Setup(x => x.AddBook(_mockedTakenBook.Book));
 
             var service = new BookService(repositoryMock.Object);
-            Assert.AreEqual(mockedBook, service.ReturnBook("user", "123-123"));
+            Assert.AreEqual(_mockedBook, service.ReturnBook("user", "123-123"));
         }
 
         [Test]
@@ -136,13 +139,12 @@ namespace UnitTests
         [Test]
         public void DeleteBookGivenGoodParametersReturnBook()
         {
-            var mockedBook = new Book("testName", "testAuthor", "testCategory", "testLanguage", DateTime.Parse("2000-02-02"), "123-123");
             var repositoryMock = new Mock<IBookRepository>();
-            repositoryMock.Setup(x => x.GetBook("123-123")).Returns(mockedBook);
-            repositoryMock.Setup(x => x.DeleteBookFromBooksDataFile(mockedBook));
+            repositoryMock.Setup(x => x.GetBook("123-123")).Returns(_mockedBook);
+            repositoryMock.Setup(x => x.DeleteBookFromBooksDataFile(_mockedBook));
 
             var service = new BookService(repositoryMock.Object);
-            Assert.AreEqual(mockedBook, service.DeleteBook("123-123"));
+            Assert.AreEqual(_mockedBook, service.DeleteBook("123-123"));
         }
     }
 }
