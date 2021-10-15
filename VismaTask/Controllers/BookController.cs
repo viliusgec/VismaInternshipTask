@@ -27,7 +27,8 @@ namespace VismaTask.Controllers
             var bookPublicationDate = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("Type book ISBN:");
             var bookISBN = Console.ReadLine();
-            bookService.AddBook(bookName, bookAuthor, bookCategory, bookLanguage, bookPublicationDate, bookISBN);
+            var newBook = bookService.AddBook(bookName, bookAuthor, bookCategory, bookLanguage, bookPublicationDate, bookISBN);
+            PrintBook(newBook);
         }
 
         public void TakeBook()

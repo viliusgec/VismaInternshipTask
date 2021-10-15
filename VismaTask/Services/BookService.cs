@@ -10,17 +10,18 @@ namespace VismaTask.Services
     {
         private readonly BookRepository bookRepository = new BookRepository();
         private readonly string[] filters = { "name", "author", "category", "language", "isbn", "taken", "available" };
-        public void AddBook(string name, string author, string category, string language, DateTime publicationdate, string ISBN)
+        public Book AddBook(string name, string author, string category, string language, DateTime publicationdate, string ISBN)
         {
             if(name == string.Empty || author == string.Empty || category == string.Empty || language == string.Empty || ISBN == string.Empty)
             {
                 Console.WriteLine("Fields can not be empty");
-                return;
+                return null;
             }    
             var bookRepository = new BookRepository();
             Book book = new(name, author, category, language, publicationdate, ISBN);
             bookRepository.AddBook(book);
-            Console.WriteLine("Book added");
+            Console.WriteLine("Book added:");
+            return book;
         }
 
         public Book TakeBook(string userId, string ISBN, string takeForDays)
