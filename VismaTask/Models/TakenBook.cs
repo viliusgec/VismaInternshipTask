@@ -2,7 +2,7 @@
 
 namespace VismaTask.Models
 {
-    class TakenBook
+    public class TakenBook
     {
         public string UserId { get; set; }
         public int TakenForDays { get; set; }

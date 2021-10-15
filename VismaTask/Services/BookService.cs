@@ -6,7 +6,7 @@ using VismaTask.Repository;
 
 namespace VismaTask.Services
 {
-    class BookService
+    public class BookService
     {
         private readonly BookRepository bookRepository = new BookRepository();
         private readonly string[] filters = { "name", "author", "category", "language", "isbn", "taken", "available" };

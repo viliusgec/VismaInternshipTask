@@ -6,7 +6,7 @@ using VismaTask.Models;
 
 namespace VismaTask.Repository
 {
-    class BookRepository
+    public class BookRepository
     {
         private static readonly string BooksDataFile = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + @"\Data\BookData.json";
         private static readonly string TakenBooksDataFile = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + @"\Data\TakenBooksData.json";

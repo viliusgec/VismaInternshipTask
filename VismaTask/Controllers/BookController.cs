@@ -5,7 +5,7 @@ using VismaTask.Services;
 
 namespace VismaTask.Controllers
 {
-    class BookController
+    public class BookController
     {
         private readonly BookService bookService = new BookService();
         public BookController()
