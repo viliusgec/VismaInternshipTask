@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using VismaTask.Models;
+using VismaTask.Repositories;
 using VismaTask.Repository;
 
 namespace VismaTask.Services
 {
     public class BookService
     {
-        private readonly BookRepository bookRepository = new BookRepository();
+        private readonly IBookRepository bookRepository;
         private readonly string[] filters = { "name", "author", "category", "language", "isbn", "taken", "available" };
+
+        public BookService(IBookRepository bookRepository = null)
+        {
+            this.bookRepository = bookRepository ??= new BookRepository();
+        }
+
         public Book AddBook(string name, string author, string category, string language, DateTime publicationdate, string ISBN)
         {
             if(name == string.Empty || author == string.Empty || category == string.Empty || language == string.Empty || ISBN == string.Empty)
@@ -31,12 +38,6 @@ namespace VismaTask.Services
                 Console.WriteLine("Fields can not be empty");
                 return null;
             }
-            Book book = bookRepository.GetBook(ISBN);
-            if (book == null)
-            {
-                Console.WriteLine("Book does not exist.");
-                return null;
-            }
             if (int.Parse(takeForDays) > 60)
             {
                 Console.WriteLine("You can only take book for less than 2months (60days).");
@@ -45,6 +46,12 @@ namespace VismaTask.Services
             if (bookRepository.GetUserTakenBookAmmount(userId) >= 3)
             {
                 Console.WriteLine("You can only take 3 books.");
+                return null;
+            }
+            Book book = bookRepository.GetBook(ISBN);
+            if (book == null)
+            {
+                Console.WriteLine("Book does not exist.");
                 return null;
             }
             bookRepository.DeleteBookFromBooksDataFile(book);
