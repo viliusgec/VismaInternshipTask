@@ -126,15 +126,15 @@ namespace VismaTask.Services
             switch (filter)
             {
                 case "name":
-                    return books.FindAll(x => x.Name == value);
+                    return books.FindAll(x => x.Name.ToLower() == value);
                 case "author":
-                    return books.FindAll(x => x.Author == value);   
+                    return books.FindAll(x => x.Author.ToLower() == value);   
                 case "category":
-                    return books.FindAll(x => x.Category == value);
+                    return books.FindAll(x => x.Category.ToLower() == value);
                 case "language":
-                    return books.FindAll(x => x.Language == value);
+                    return books.FindAll(x => x.Language.ToLower() == value);
                 case "isbn":
-                    return books.FindAll(x => x.ISBN == value);
+                    return books.FindAll(x => x.ISBN.ToLower() == value);
                 case "available":
                     return bookRepository.GetAllBooksData();
                 case "taken":
