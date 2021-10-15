@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VismaTask", "VismaTask\VismaTask.csproj", "{7D71D3E9-5F6E-4020-BA60-F7241B30D00F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D71D3E9-5F6E-4020-BA60-F7241B30D00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D71D3E9-5F6E-4020-BA60-F7241B30D00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D71D3E9-5F6E-4020-BA60-F7241B30D00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D71D3E9-5F6E-4020-BA60-F7241B30D00F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC04C303-1C8F-4A39-911B-4BFB92DD6901}
+	EndGlobalSection
+EndGlobal
